@@ -13,7 +13,7 @@ Template.mall.created = function () {
 };
 
 Template.mall.rendered = function () {
-  console.log("mall.rendered:"+Router.current().url);
+  //console.log("mall.rendered:"+Router.current().url);
   var mallParams = Router.current().params.query.mall;
   console.log("mall.rendered:"+mallParams);
 
