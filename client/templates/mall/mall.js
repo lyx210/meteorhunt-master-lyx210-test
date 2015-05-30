@@ -64,3 +64,4 @@ Template.mall.helpers({
     //return (Malls.find().count());
   },
 });
+//testonly
