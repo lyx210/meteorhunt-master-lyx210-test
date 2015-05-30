@@ -1,0 +1,33 @@
+<template name="appLayout">
+
+  {{#ionBody}}
+    {{> ionNavBar}}
+
+    {{#ionNavView}}
+      {{> yield}}
+    {{/ionNavView}}
+
+    {{#if isAndroid}}
+      {{#ionTabs style="android"}}
+        {{> ionTab title="Trending" path="trending" icon="android-star"}}
+        {{> ionTab title="Recent" path="recent" icon="android-time"}}
+        {{> ionTab title="Notifications" path="notifications" icon="android-notifications"}}
+        {{> ionTab title="Profile" path="profile" icon="android-happy"}}
+        {{> ionTab title="商场" path="mall" icon="ios-color-wand-outline"}}
+        {{> ionTab title="店铺" path="shop" icon="ios-rose-outline"}}
+        {{> ionTab title="优惠" path="preference" icon="ios-lightbulb-outline"}}
+      {{/ionTabs}}
+    {{else}}
+      {{#ionTabs style="ios"}}
+        {{> ionTab title="Trending" path="trending" iconOff="ios-bolt-outline" iconOn="ios-bolt" class="tab-item-positive"}}
+        {{> ionTab title="Recent" path="recent" iconOff="ios-clock-outline" iconOn="ios-clock" class="tab-item-positive"}}
+        {{> ionTab title="Notifications" path="notifications" iconOff="ios-bell-outline" iconOn="ios-bell" class="tab-item-positive"}}
+        {{> ionTab title="Profile" path="profile" iconOff="ios-person-outline" iconOn="ios-person" class="tab-item-positive"}}
+        {{> ionTab title="商场" path="mall" iconOff="ios-color-wand-outline" iconOn="ios-color-wand" class="tab-item-positive"}}
+        {{> ionTab title="店铺" path="shop" iconOff="ios-rose-outline" iconOn="ios-rose" class="tab-item-positive"}}
+        {{> ionTab title="优惠" path="preference" iconOff="ios-lightbulb-outline" iconOn="ios-lightbulb" class="tab-item-positive"}}
+      {{/ionTabs}}
+    {{/if}}
+  {{/ionBody}}
+
+</template>

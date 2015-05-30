@@ -1,0 +1,27 @@
+<template name="shop">
+
+  {{#contentFor "headerButtonLeft"}}
+    <button class="button button-clear pull-left button-positive" data-ion-modal="search">
+      {{> ionIcon icon='ios-search'}}
+    </button>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear pull-right button-positive" data-ion-modal="newProduct">
+      {{> ionIcon icon='ios-plus-empty'}}
+    </button>
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">店铺列表</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+        {{#each shops}}
+          <a href="/shop/{{_id}}"><h1 >{{name}}   {{about}}  {{_id}}</h1></a>
+        {{/each}}
+    {{/ionContent}}
+  {{/ionView}}
+
+</template>
