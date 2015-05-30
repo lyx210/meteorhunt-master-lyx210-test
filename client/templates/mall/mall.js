@@ -59,7 +59,7 @@ Template.mall.helpers({
     var mall=Malls.findOne();//(Session.get("SelectedMall"));
     return mall && mall.about;
 
-    //console.log("mall about=???"+Meteor.call("mallabout_md"));
+    console.log("mall about=???"+Meteor.call("mallabout_md"));
     //return Meteor.call("mallabout_md");
     //return (Malls.find().count());
   },
