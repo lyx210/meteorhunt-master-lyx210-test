@@ -1,54 +1,61 @@
-var mallParams = "0002";
-
 Template.mall.created = function () {
-  console.log("mall.created:"+Router.current().url);
+  //console.log("mall.created:"+Router.current().url);
   this.autorun(function () {
-    var tmpmallParams = Router.current().params.query.mall;
-    console.log("mall.created: tmpmallParams="+tmpmallParams);
+    var mallParams = Session.get("mallParams");
+    var tmpmallParams = Router.current().params.query.mall;//for /?mall=0001
+    //console.log("mall.created: tmpmallParams="+tmpmallParams);
     if(tmpmallParams)
-    mallParams=tmpmallParams;
-    console.log("mall.created: mallParams="+mallParams);
-    this.subscription = Meteor.subscribe('Malls',mallParams);
+    {
+      mallParams=tmpmallParams;
+      if(Meteor.userId())
+      {
+        //console.log("mall.created: userid="+Meteor.userId());
+        Meteor.call("userlocation_set",tmpmallParams,Meteor.userId());
+        //console.log("mall.created: location="+tmpmallParams);
+
+        //console.log("mall.created: profile.mallParams="+_(Meteor.user().profile.mallParams));
+        //Meteor.user().profile.mallParams=tmpmallParams;
+      }
+    }
+    else {
+      if(Meteor.userId())
+      {
+        // console.log("mall.created: mallParams="+Meteor.user().profile.mallParams);
+        // tmpmallParams=Meteor.user().profile.mallParams;
+
+        //console.log("mall.created: userid="+Meteor.userId());
+        //console.log("mall.created: findone="+UserDataExts.findOne({userID: Meteor.userId()}));
+        //的确会出现UserDataExts.findOne为空的情况，主要是由于数据库没有完成初始化导致的
+        if(UserDataExts.findOne({userID: Meteor.userId()}))
+        {
+          mallParams=UserDataExts.findOne({userID: Meteor.userId()}).location;
+          //console.log("mall debug 001: mallParams="+mallParams);
+        }
+        else {
+          //console.log("mall debug 001: mallParams=NOT find");
+        }
+      }
+    }
+    //console.log("mall.created: mallParams="+mallParams);
+    Session.set("mallParams", mallParams);
+    //this.subscription = Meteor.subscribe('Malls',Session.get("mallParams"));
   }.bind(this));
 };
 
 Template.mall.rendered = function () {
-  //console.log("mall.rendered:"+Router.current().url);
-  var mallParams = Router.current().params.query.mall;
-  console.log("mall.rendered:"+mallParams);
-
-  //var controller=Router.current();
-  //var params = controller.params;
-  //console.log("mallid"+controller.params._id);
-
-  // var waypoint = new Waypoint({
-  //   element: document.getElementById('#waypoint'),
-  //   handler: function(direction) {
-  //     console.log('Scrolled to waypoint!')
+  // this.autorun(function () {
+  //   if (!this.subscription.ready()) {
+  //     IonLoading.show();
+  //   } else {
+  //     IonLoading.hide();
   //   }
-  // });
-
-// ({
-//   console.log ('req:' + req) ;
-//   //var url = require('url');
-//   //var querystring = require('querystring');
-//   //var query = querystring.parse(url.parse(req.url).query);
-//   var query = url.parse(req.url,true).query;
-//   //console.log("mallid:"+query);
-// })(jQuery);
-//  this.autorun(function () {
-//    if (!this.subscription.ready()) {
-//      IonLoading.show();
-//    } else {
-//      IonLoading.hide();
-//    }
-//  }.bind(this));
+  // }.bind(this));
 };
 
 Template.mall.helpers({
   mallname: function () {
     //console.log(Malls);
-    var mall=Malls.findOne();//(Session.get("SelectedMall"));
+    var mall=Malls.findOne({index:Session.get("mallParams")});//(Session.get("SelectedMall"));
     return mall && mall.name;
 
     //console.log("mall name=???"+Meteor.call("mallname_md"));
@@ -56,12 +63,11 @@ Template.mall.helpers({
     //return (Malls.find().count());
   },
   mallabout: function () {
-    var mall=Malls.findOne();//(Session.get("SelectedMall"));
+    var mall=Malls.findOne({index:Session.get("mallParams")});//(Session.get("SelectedMall"));
     return mall && mall.about;
 
-    console.log("mall about=???"+Meteor.call("mallabout_md"));
+    //console.log("mall about=???"+Meteor.call("mallabout_md"));
     //return Meteor.call("mallabout_md");
     //return (Malls.find().count());
   },
 });
-//testonly

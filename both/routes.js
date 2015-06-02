@@ -41,8 +41,16 @@ Router.route('/shop/:_id', {
   name: 'shopDetail'
 });
 
+Router.route('/shopset', {
+  name: 'shopset'
+});
+
 Router.route('/preference', {
   name: 'preference'
+});
+
+Router.route('/preference/:_id', {
+  name: 'preferenceDetail'
 });
 
 Router.route('/prefset', {

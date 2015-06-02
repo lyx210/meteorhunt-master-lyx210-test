@@ -5,6 +5,19 @@ AccountsTemplates.configure({
   positiveFeedback: false,
 });
 
+// AccountsTemplates.addFields([
+//     {
+//         _id: 'phone',
+//         type: 'tel',
+//         displayName: "Landline Number",
+//     },
+//     {
+//         _id: 'fax',
+//         type: 'tel',
+//         displayName: "Fax Number",
+//     }
+// ]);
+
 // Template.signIn.events({
 //   'click [data-action=sign-in]': function (event, template) {
 //     Meteor.loginWithMeteorDeveloperAccount({}, function (error) {

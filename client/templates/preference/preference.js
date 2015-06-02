@@ -1,27 +1,49 @@
 Template.preference.created = function () {
   this.autorun(function () {
-    this.subscription = Meteor.subscribe('preference');
+    var mallParams = Session.get("mallParams");
+    var tmpmallParams = Router.current().params.query.mall;//for /?mall=0001
+    //console.log("mall.created: tmpmallParams="+tmpmallParams);
+    if(tmpmallParams)
+    {
+      mallParams=tmpmallParams;
+      if(Meteor.userId())
+      {
+        //console.log("mall.created: userid="+Meteor.userId());
+        Meteor.call("userlocation_set",tmpmallParams,Meteor.userId());
+        //console.log("mall.created: location="+tmpmallParams);
+      }
+    }
+    else {
+      if(Meteor.userId())
+      {
+        if(UserDataExts.findOne({userID: Meteor.userId()}))
+        mallParams=UserDataExts.findOne({userID: Meteor.userId()}).location;
+      }
+    }
+    //console.log("mall.created: mallParams="+mallParams);
+    Session.set("mallParams", mallParams);
+    //this.subscription = Meteor.subscribe('Preferences',Session.get("mallParams"));
   }.bind(this));
 };
 
 Template.preference.rendered = function () {
-//  this.autorun(function () {
-//    if (!this.subscription.ready()) {
-//      IonLoading.show();
-//    } else {
-//      IonLoading.hide();
-//    }
-//  }.bind(this));
+ // this.autorun(function () {
+ //   if (!this.subscription.ready()) {
+ //     IonLoading.show();
+ //   } else {
+ //     IonLoading.hide();
+ //   }
+ // }.bind(this));
 };
 
 Template.preference.helpers({
   preferences: function () {
     //console.log(Preferences.find().fetch());
-    return Preferences.find({},{sort:{createdAt:-1}});
+    return Preferences.find({mallindex:Session.get("mallParams")},{sort:{createdAt:-1}});
   },
   preferencecount: function () {
     //console.log(Preferences.find().fetch());
-    return Preferences.find().count();
+    return Preferences.find({mallindex:Session.get("mallParams")}).count();
   },
   /*
   preferencepics: function (taskId) {
@@ -37,7 +59,10 @@ Template.preference.helpers({
     //}
     return Preferences.findOne({_id:taskId}).fileIds;
   },*/
-  preferencepic: function (taskId) {
+  preferencepic1st: function (taskId) {
+    return Preferences.findOne({_id:taskId}).fileIds[0];
+  },
+  getpreferencepic: function (taskId) {
     //console.log("Each fileId="+taskId);
     //console.log("Each fileId="+taskId+","+Uploads.findOne({_id: taskId}).url);
     return Uploads.find({_id: taskId});

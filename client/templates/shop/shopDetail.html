@@ -4,8 +4,8 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear pull-right button-positive" data-action="share-product" data-product-id="{{product._id}}">
-      {{> ionIcon icon='ios-upload-outline'}}
+    <button class="button button-clear pull-right button-positive" data-ion-modal="prefset">
+      {{> ionIcon icon='ios-plus-empty'}}
     </button>
   {{/contentFor}}
 
@@ -15,15 +15,36 @@
 
   {{#ionView}}
     {{#ionContent}}
-      <div class="product-detail">
+    {{#ionList}}
         {{#with shopdetail}}
+          <p>
+          {{#each fileIds }}
+            {{#each getshoppic this }}
+              <a href="{{this.url}}" target="_blank"><img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt=""  class="shoppicdetail_test" /></a>
+            {{/each}}
+          {{/each}}
+          </p>
           <p>{{about}}</p>
-          <p>{{address}}</p>
-          <p>{{mail}}</p>
-          <p>{{phone}}</p>
-          <p>{{type}}</p>
+          <p>地址:{{address}}</p><p>邮箱:{{mail}}</p><p>电话:{{phone}} 传真:{{type}}</p>
         {{/with}}
-      </div>
+      {{/ionList}}
+    <!-- {{/ionContent}}
+  {{/ionView}}
+  {{#ionView}}
+    {{#ionContent}} -->
+      {{#ionList}}
+        {{#each preferences}}
+         <a class="item" href="/preference/{{_id}}">
+          {{#with preferencepic1st _id }}
+            {{#each getpreferencepic this }}
+              <a href="{{this.url}}" target="_blank"><img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt=""  class="preferencepiclist_test" align="left" /></a>
+            {{/each}}
+          {{/with}}
+          <h2>{{name}}</h2>
+          <p>{{about}}</p>
+         </a>
+        {{/each}}
+      {{/ionList}}
     {{/ionContent}}
   {{/ionView}}
 

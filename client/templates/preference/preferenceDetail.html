@@ -1,0 +1,33 @@
+<template name="preferenceDetail">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-positive" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear pull-right button-positive" onclick="javascript:location.href='/shop/{{#with preferencedetail}}{{shopId}}{{/with}}'" >
+      {{> ionIcon icon='ios-rose-outline'}}
+    </button>
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">优惠细节_{{#with preferencedetail}}{{name}}{{/with}}</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+    {{#ionList}}
+        {{#with preferencedetail}}
+          <p>
+          {{#each fileIds }}
+            {{#each getpreferencepic this }}
+              <a href="{{this.url}}" target="_blank"><img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt=""  class="preferencepicdetail_test"/></a>
+            {{/each}}
+          {{/each}}
+          </p>
+          <p>{{about}}</p>
+        {{/with}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+
+</template>

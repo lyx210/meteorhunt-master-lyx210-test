@@ -7,7 +7,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear pull-right button-positive" data-ion-modal="newProduct">
+    <button class="button button-clear pull-right button-positive" data-ion-modal="shopset">
       {{> ionIcon icon='ios-plus-empty'}}
     </button>
   {{/contentFor}}
@@ -18,9 +18,20 @@
 
   {{#ionView}}
     {{#ionContent}}
+      {{#ionList}}
         {{#each shops}}
-          <a href="/shop/{{_id}}"><h1 >{{name}}   {{about}}  {{_id}}</h1></a>
+          <a class="item" href="/shop/{{_id}}">
+            {{#with shoppic1st _id }}
+              {{#each getshoppic this }}
+                <!--<img class="small-image" src="/cfs/files/uploads/{{this}}?store=thumbs">-->
+                <a href="{{this.url}}" target="_blank"><img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="shoppiclist_test" align="left" /></a>
+              {{/each}}
+            {{/with}}
+            <h2>{{name}}</h2>
+            <p>{{about}}</p>
+          </a>
         {{/each}}
+      {{/ionList}}
     {{/ionContent}}
   {{/ionView}}
 
