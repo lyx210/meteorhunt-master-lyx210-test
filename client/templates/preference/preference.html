@@ -7,7 +7,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear pull-right button-positive" data-ion-modal="prefset">
+    <button class="button button-clear pull-right button-positive" onclick="javascript:location.href='/shop'" >
       {{> ionIcon icon='ios-plus-empty'}}
     </button>
   {{/contentFor}}
@@ -18,17 +18,19 @@
 
   {{#ionView}}
     {{#ionContent}}
+      {{#ionList}}
         {{#each preferences}}
-          {{#each fileIds }}
-            {{#each preferencepic this }}
-              <!--<img class="small-image" src="/cfs/files/uploads/{{this}}?store=thumbs">-->
-              <a href="{{this.url}}" target="_blank"><img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt=""  class="thumbnail" /></a>
-            {{/each}}
-          {{/each}}
-
-          <h1 >{{name}}   {{about}}</h1>
-          <h1 >++++++++++++++++++++++++++++++++++</h1>
+        <a class="item" href="/preference/{{_id}}">
+         {{#with preferencepic1st _id }}
+           {{#each getpreferencepic this }}
+             <a href="{{this.url}}" target="_blank"><img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt=""  class="preferencepiclist_test" align="left" /></a>
+           {{/each}}
+         {{/with}}
+         <h2>{{name}}</h2>
+         <p>{{about}}</p>
+        </a>
         {{/each}}
+      {{/ionList}}
     {{/ionContent}}
   {{/ionView}}
 

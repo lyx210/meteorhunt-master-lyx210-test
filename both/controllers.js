@@ -23,3 +23,7 @@ ShopDetailController = AppController.extend({});
 PreferenceController = AppController.extend({});
 
 PrefsetController = AppController.extend({});
+
+ShopsetController = AppController.extend({});
+
+PreferenceDetailController = AppController.extend({});

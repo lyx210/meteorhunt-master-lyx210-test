@@ -1,13 +1,19 @@
-<template name="prefset">
-    {{#ionModal title="新建优惠"}}
+<template name="shopset">
+    {{#ionModal title="新建店铺"}}
         <div class="padding">
             <div class="list">
                 <form>
                   <label class="item item-input">
-                      <textarea name="name" rows="1" placeholder="优惠名称"></textarea>
-                  </label>
+                      <textarea name="name" rows="1" placeholder="店铺名称"></textarea>
+                      <textarea name="address" rows="1" placeholder="地址"></textarea>
+                    </label>
                     <label class="item item-input">
-                        <textarea name="about" rows="5" placeholder="优惠描述"></textarea>
+                      <textarea name="phone" rows="1" placeholder="电话"></textarea>
+                      <textarea name="mail" rows="1" placeholder="传真"></textarea>
+                      <textarea name="type" rows="1" placeholder="类型"></textarea>
+                      </label>
+                      <label class="item item-input">
+                        <textarea name="about" rows="5" placeholder="店铺描述"></textarea>
                     </label>
                     <label class="item item-input">
                         <span class="input-label">图片</span>
@@ -26,7 +32,6 @@
 
                         </div>
                     </label>
-
                     <div class="padding">
                         <button type="submit" class="btn button button-positive button-block submit">提交</button>
                     </div>

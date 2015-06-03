@@ -7,8 +7,9 @@ Meteor.startup(function() {
   // });
 });
 
+
 Accounts.onCreateUser(function(options, user) {
   // user.emails = user.services['meteor-developer'].emails;
-  // user.profile = options.profile;
+  user.profile = options.profile;
   return user;
 });
